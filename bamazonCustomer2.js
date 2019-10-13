@@ -43,43 +43,27 @@ function purchaseItem() {
       }])
       .then(function(answer) {
         //   console.log(answer);
-        var query = "SELECT item_id, product_name, department_name, price FROM products WHERE ?";
+        var query = "SELECT item_id, product_name, department_name, price, stock_quantity FROM products WHERE ?";
         connection.query(query, { item_id: answer.item_id }, function(err, result) {
           if (err) throw err;
           for (var i = 0; i < result.length; i++) {
             console.log("item_id: " + result[i].item_id + " || product_name: " + result[i].product_name + " || price: " + result[i].price);
-          }
 
          
-        });
+
+// determine if there is enough stock to fulfill order
+if (result[i].stock_quantity < parseInt(answer.stock_quantity)) {
+    // bid was high enough, so update db, let the user know, and start over
+    console.log("Sorry, we can't fulfill your order, try back again later.")
+    
+}}
+
       });
-    //   console.log(purchase);  
+    });
 
-    };
-
-    function purchaseQuantity() {
-      //itemList();
-      inquirer
-        .prompt({
-          name: "stock_quantity",
-          type: "input",
-          message: "How many would you like to purchase?"
-        })
-        .then(function(answer) {
-          //   console.log(answer);
-          var query = "SELECT item_id, product_name, department_name, price FROM products WHERE ?";
-          connection.query(query, { item_id: answer.item_id }, function(err, result) {
-            if (err) throw err;
-            for (var i = 0; i < result.length; i++) {
-              console.log("item_id: " + result[i].item_id + " || product_name: " + result[i].product_name + " || price: " + result[i].price);
-            }
-  
-           
-          });
-        });
-      //   console.log(purchase);  
-  
-      };
+};
 
 
-itemList();
+    
+
+itemList()
