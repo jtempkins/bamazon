@@ -16,18 +16,41 @@ connection.connect(function(err){
    console.log("connected as id " + connection.threadId);
 })
 
-var itemList = (function(itemList) {
+//outputs a full list of items in the database//
+var itemList = (function() {
     connection.query("SELECT * FROM products", function(err, result)
     {
       if (err) throw err;
-      console.log(result);
+      console.table(result);
+      purchase();
     }
    
     )}
-)
-itemList()
+);
 
+function purchase() {
+    //itemList();
+    inquirer
+      .prompt({
+        name: "item_id",
+        type: "input",
+        message: "Enter item id for product you'd like to purchase."
+      })
+      .then(function(answer) {
+        //   console.log(answer);
+        var query = "SELECT item_id, product_name, department_name, price FROM products WHERE ?";
+        connection.query(query, { item_id: answer.item_id }, function(err, result) {
+          if (err) throw err;
+          for (var i = 0; i < result.length; i++) {
+            console.log("item_id: " + result[i].item_id + " || product_name: " + result[i].product_name + " || price: " + result[i].price);
+          }
 
+         
+        });
+      });
+    //   console.log(purchase);  
 
+    };
+//purchase();
 
-connection.end()
+itemList();
