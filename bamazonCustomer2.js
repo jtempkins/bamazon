@@ -50,20 +50,37 @@ function purchaseItem() {
             console.log("item_id: " + result[i].item_id + " || product_name: " + result[i].product_name + " || price: " + result[i].price);
 
          
-
+        }
 // determine if there is enough stock to fulfill order
 if (result[i].stock_quantity < parseInt(answer.stock_quantity)) {
-    // bid was high enough, so update db, let the user know, and start over
+    // not enough stock
     console.log("Sorry, we can't fulfill your order, try back again later.")
+
+
+}
+else 
+// (result[i].stock_quantity > parseInt(answer.stock_quantity))
+// function updateStock() {
+    connection.query("UPDATE products SET stock_quantity = stock_quantity - parsInt(answer.stock_quantity) WHERE item_id = [results[i].item_id]", function(err, result){ 
+
+    // console.log("New stock total is " + stock_quantity)
+
+
+    // var mysqlUpdate = 
+    // connection.query(
+//  "UPDATE products SET stock_quantity=stock_quantity - answer.stock_quantity WHERE item_id=result[i].item_id";
+ 
+//  function(err, res) {
+    console.log("Your order total is " + result[i].price)
+}
+//  }
+     
+
+// updateStock();
+     );
     
-}}
 
-      });
-    });
-
-};
-
-
-    
+});
+})};   
 
 itemList()
