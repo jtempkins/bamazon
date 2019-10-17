@@ -27,8 +27,6 @@ var itemList = (function () {
   )
 }
 );
-// var item = result[i].item_id;
-// var quantity = result[i].stock_quantity;
 
 function purchaseItem() {
   //itemList();
@@ -65,20 +63,24 @@ function purchaseItem() {
                   item_id: result[i].item_id
                 }
               ],
-              // function () 
-              // {
-                console.log("Thank you for your business! Your total is " + "$" + parseInt(answer.stock_quantity) * result[i].price)
-              )}
-            //     else (result[i].stock_quantity < parseInt(answer.stock_quantity)) ;{
-            //   // Let the user know there isn't enough stock to fulfill order
-            //   console.log("Sorry, we can't fulfill your order, try back again later.")
-
-            // };
+              console.log("Thank you for your business! Your total is " + "$" + (parseInt(answer.stock_quantity) * result[i].price).toFixed(2)
+              ));
+            connection.end();
+          }
 
 
+          else {
+            (result[i].stock_quantity < parseInt(answer.stock_quantity)); {
+              // Let the user know there isn't enough stock to fulfill order
+              console.log("Sorry, we can't fulfill your order, try back again later.")
+              connection.end();
+            };
 
-      };
-    })})
+
+          };
+        }
+      })
+    })
 };
 
-itemList()
+itemList();
