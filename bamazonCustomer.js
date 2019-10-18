@@ -49,7 +49,6 @@ function purchaseItem() {
         for (var i = 0; i < result.length; i++) {
           console.log("item_id: " + result[i].item_id + " || product_name: " + result[i].product_name + " || price: " + result[i].price);
 
-          // }        
 
           // determine if there is enough stock to fulfill order
           if (result[i].stock_quantity > parseInt(answer.stock_quantity)) {
